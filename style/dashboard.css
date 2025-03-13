@@ -1,0 +1,108 @@
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+.page-transition {
+    transition: all 0.3s ease-in-out;
+}
+.slide-in {
+    transform: translateX(0);
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Add transition */
+}
+
+.slide-out {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Add transition */
+}
+
+  /* Modal styles */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: opacity 0.3s ease;
+  }
+
+  /* This is crucial - make sure .hidden actually hides the modal */
+  .hidden {
+    display: none !important;
+  }
+
+  .modal-container {
+    background-color: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    max-width: 90%;
+    width: 24rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-out;
+    position: relative;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  .modal-close {
+    cursor: pointer;
+    padding: 0.25rem;
+    background: transparent;
+    border: none;
+  }
+
+  .modal-body {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  .modal-fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+  }
+
+  .modal-slide-in {
+    animation: slideIn 0.3s ease-out forwards;
+  }
+
+  .modal-slide-out {
+    animation: slideOut 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes slideOut {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(20px); opacity: 0; }
+  }

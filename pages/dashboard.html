@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/SMC.png" type="image/png">
+    <title>SMC Clinic - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"rel="stylesheet"/>
+    <link rel="stylesheet" href="../style/dashboard.css">
+    <script defer src="../js/dashboard.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 overflow-x-hidden h-dvh">
+    <!-- Header -->
+    <header class="flex justify-center bg-cover w-dvw top-0 overflow-x-hidden">
+        <img draggable="false" class="bg-cover w-full" src="../img/HeaderPC.svg" alt="">
+    </header>
+    <!-- Main Content -->
+    <main class="w-dvw h-full">
+        <!-- Top Navigation Tabs -->
+        <div class="flex w-full justify-between px-4 py-3 md:justify-center">
+            <button onclick="switchTab('dashboard')" id="dashboard-tab" class="px-6 py-1.5 rounded-full text-white bg-blue-600 font-medium text-sm">Dashboard</button>
+            <button onclick="switchTab('account')" id="account-tab" class="px-6 py-1.5 rounded-full text-gray-700 font-medium text-sm">Account</button>
+            <button onclick="switchTab('notification')" id="notification-tab" class="px-6 py-1.5 rounded-full text-gray-700 font-medium text-sm">Notification</button>
+        </div>
+
+        <!-- Pages Container -->
+        <div class="relative flex flex-col justify-center items-center w-dvw h-dvh px-4 md:px-8 lg:px-16">
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page-transition py-2 w-full h-full">
+                <h2 class="text-xl font-semibold mb-3">Student Clinic Dashboard</h2>
+                
+                <div class="bg-white rounded-xl shadow-sm p-4 mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-4 h-4 bg-blue-600 rounded-sm"></div>
+                        <h3 class="text-base font-semibold">Total Clinic Visits</h3>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">You have visited the clinic:</p>
+                            <p class="text-3xl font-bold mt-1">10</p>
+                            <p class="text-xs text-gray-500">This month.</p>
+                        </div>
+                        <div class="w-[150px] h-[60px] md:w[280px] md:h-[120px] lg:h-[200px]">
+                            <canvas id="visitsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-4 mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-4 h-4 bg-blue-600 rounded-sm"></div>
+                        <h3 class="text-base font-semibold">Recent Visit</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">January 30, 2025</p>
+                </div>
+
+                <div class="space-y-3">
+                    <button id="requestAppointmentBtn" class="w-full bg-blue-600 text-white rounded-lg py-3 flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Request Appointment
+                    </button>
+                    <button onclick="redirectToForm()" class="w-full bg-blue-600 text-white rounded-lg py-3 flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Edit Medical Record
+                    </button>
+                    <button onclick="redirectToFormView()" class="w-full bg-blue-600 text-white rounded-lg py-3 flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Check Medical Record
+                    </button>
+                </div>
+            </div>
+
+            <!-- Account Page -->
+            <div id="account" class="page-transition px-4 py-2 slide-out">
+                <h2 class="text-xl font-semibold mb-3">Profile Picture</h2>
+                
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-4">
+                    <div class="flex justify-center mb-4">
+                        <div class="relative">
+                            <img src="https://via.placeholder.com/100" alt="Profile" class="w-20 h-20 rounded-full bg-gray-200">
+                            <button class="absolute bottom-0 right-0 bg-white text-blue-600 p-1 rounded-full border border-gray-200">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-semibold mb-3">Account Settings</h2>
+                
+                <div class="bg-gray-200 rounded-xl shadow-sm p-4 mb-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">Basic Info</h3>
+                    
+                    <div class="bg-white rounded-lg p-3 mb-2 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-gray-500">Name</p>
+                            <p class="text-sm">Student Student</p>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-3 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-gray-500">Email</p>
+                            <p class="text-sm">student@gmail.com</p>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-200 rounded-xl shadow-sm p-4 mb-6">
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">Account Info</h3>
+                    
+                    <div class="bg-white rounded-lg p-3 mb-2 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-gray-500">Username</p>
+                            <p class="text-sm">student1234</p>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-3 mb-2 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-gray-500">Password</p>
+                            <p class="text-sm">********</p>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-3 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-gray-500">Confirm Password</p>
+                            <p class="text-sm">********</p>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+
+                <button class="w-full bg-red-400 text-white rounded-lg py-3 hover:bg-red-500 transition-colors">
+                    Logout
+                </button>
+            </div>
+
+            <!-- Notification Page -->
+            <div id="notification" class="page-transition px-4 py-2 slide-out">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <h2 class="text-xl font-semibold">Notification List</h2>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-blue-600">
+                        <div class="w-2 h-2 bg-blue-600 rounded-full mt-1.5"></div>
+                        <div>
+                            <p class="text-sm font-medium">Upcoming Appointment in December 30, 2024</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-white rounded-lg">
+                        <div class="w-2 h-2 bg-gray-300 rounded-full mt-1.5"></div>
+                        <div>
+                            <p class="text-sm font-medium">Upcoming Appointment in July 1, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="appointmentModal" class="modal hidden">
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3 class="modal-title">Request Appointment</h3>
+            <button type="button" class="modal-close">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="appointmentForm">
+              <div class="mb-4">
+                <label for="appointmentReason" class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
+                <input 
+                  type="text" 
+                  id="appointmentReason" 
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none duration-300 transition-color focus:border focus:border-black focus:placeholder:text-black"
+                  placeholder="Type reason"
+                  required
+                >
+              </div>
+              <div class="mb-6">
+                <label for="appointmentDate" class="block text-sm font-medium text-gray-700 mb-1">Set Date</label>
+                <input 
+                  type="date" 
+                  id="appointmentDate" 
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none placeholder:text-gray-400 duration-300 transition-color focus:border focus:border-black focus:placeholder:text-black"
+                  placeholder="MM/DD/YYYY"
+                  required
+                >
+              </div>
+              <div class="flex justify-center">
+                <button 
+                  type="submit" 
+                  class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <script>
+    function redirectToForm() {
+        // Mock function to simulate form submission
+        window.location.href = './medical-form.html';
+    }
+
+    function redirectToFormView() {
+        // Mock function to simulate form submission
+        window.location.href = './medical-form-view.html';
+    }
+
+    function initializeModal(modalId, buttonId) {
+        const modal = document.getElementById(modalId);
+        const button = document.getElementById(buttonId);
+        
+        if (!modal || !button) {
+        console.error(`Modal initialization failed: Could not find modal #${modalId} or button #${buttonId}`);
+        return;
+        }
+        
+        const closeButton = modal.querySelector('.modal-close');
+        
+        if (!closeButton) {
+        console.error(`Modal initialization failed: Could not find close button in modal #${modalId}`);
+        return;
+        }
+        
+        // Ensure modal starts hidden
+        modal.classList.add('hidden');
+        
+        // Open the modal when the button is clicked
+        button.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(modal);
+        });
+        
+        // Close the modal when the close button is clicked
+        closeButton.addEventListener('click', () => {
+        closeModal(modal);
+        });
+        
+        // Close the modal when clicking the backdrop (outside the modal)
+        modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal(modal);
+        }
+        });
+        
+        // Close the modal when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal(modal);
+        }
+        });
+    }
+
+    /**
+    * Opens a modal with animation
+    * @param {HTMLElement} modal - The modal element to open
+    */
+    function openModal(modal) {
+        // Make sure the modal is visible
+        modal.classList.remove('hidden');
+        
+        // Add animation classes
+        modal.classList.add('modal-fade-in');
+        const container = modal.querySelector('.modal-container');
+        if (container) {
+        container.classList.add('modal-slide-in');
+        }
+        
+        // Prevent body scrolling
+        document.body.style.overflow = 'hidden';
+    }
+
+    /**
+    * Closes a modal with an animation
+    * @param {HTMLElement} modal - The modal element to close
+    */
+    function closeModal(modal) {
+        // Add animation classes for closing
+        modal.classList.add('modal-fade-out');
+        modal.classList.remove('modal-fade-in');
+        
+        const container = modal.querySelector('.modal-container');
+        if (container) {
+        container.classList.add('modal-slide-out');
+        container.classList.remove('modal-slide-in');
+        }
+        
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('modal-fade-out');
+        
+        if (container) {
+            container.classList.remove('modal-slide-out');
+        }
+        
+        // Restore body scrolling
+        document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    // Initialize the appointment request modal after DOM load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize the appointment request modal
+        initializeModal('appointmentModal', 'requestAppointmentBtn');
+        
+        // Handle form submission
+        const appointmentForm = document.getElementById('appointmentForm');
+        if (appointmentForm) {
+        appointmentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const reason = document.getElementById('appointmentReason').value;
+            const date = document.getElementById('appointmentDate').value;
+            
+            // Do something with the data (e.g., send to server)
+            console.log('Appointment requested:', { reason, date });
+            
+            // Close the modal after submission
+            closeModal(document.getElementById('appointmentModal'));
+            
+            // Reset form
+            appointmentForm.reset();
+        });
+        }
+    });
+
+    // Make these functions available globally
+    window.initializeModal = initializeModal;
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    </script>
+</body>
+</html>
