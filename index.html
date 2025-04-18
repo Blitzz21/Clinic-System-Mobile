@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="flex max-sm:justify-center w-screen h-screen max-sm:items-center flex-row-reverse overflow-hidden">
-        <form class="login-form flex p-4 max-sm:p-0 flex-col justify-center align-middle w-[1000px] max-md:w-[678px] max-sm:w-[320px] h-fit md:h-dvh max-lg:rounded-none bg-[#EEEEEE]/80 z-50 max-sm:rounded-2xl" action="javascript:void(0);" onsubmit="redirectToDashboard()">
+        <form class="login-form flex p-2 lg:p-4 max-sm:p-0 flex-col justify-center align-middle h-fit w-fit md:w-1/2 md:h-dvh max-lg:rounded-none bg-[#EEEEEE]/80 z-50 max-sm:rounded-2xl" action="javascript:void(0);" onsubmit="redirectToDashboard()">
           <div class="flex justify-center mt-2">
             <img class="" src="./img/SMC.png" alt="SMC">
           </div>
@@ -36,12 +36,52 @@
                   <img src="./img/dep.png" alt="Department">
                 </div>
                 <select class="input-field bg-[#FFFFFF] border border-[#D9D9D9] w-full rounded-md pl-12 py-3 text-[#000000] text-base outline-none text-base focus:border-[#091C98] transition-all duration-300" name="department" id="department" required>
-                  <option selected disabled value="">Select Department</option>
-                  <option value="bed">Basic Education Program</option>
-                  <option value="tep">Tertiary Education Program</option>
-                  <option value="graduate">Graduate Education</option>
-                  <option value="jurisdoctor">Juris Doctor</option>
-                  <option value="personnel">Personnel</option>
+                  <option selected disabled value="department">Select Department</option>
+                  <optgroup label="BED">
+                    <option value="">Grade School</option>
+                    <option value="">Junior High School</option>
+                    <option value="">Senior High School</option>
+                  </optgroup>
+                  <optgroup label="TEP">
+                    <option value="">Bachelor of Arts in Psychology (ABPsych.)</option>
+                    <option value="">Bachelor of Science in Business Administration (BSBA)</option>
+                    <option value="">Bachelor of Science in Elementary Education (BEED)</option>
+                    <option value="">Bachelor of Science in Secondary Education (BSED)</option>
+                    <option value="">Bachelor of Science in Civil Engineering (BSCE)</option>
+                    <option value="">Bachelor of Science in Nursing (BSN)</option>
+                    <option value="">Bachelor of Science in Hospitality Management (BSHM)</option>
+                    <option value="">Bachelor of Science in Tourism Management (BSTM)</option>
+                    <option value="">Bachelor of Science in Computer Science (BSCS)</option>
+                    <option value="">Bachelor of Science in Criminology (BSCrim.)</option>
+                  </optgroup>
+                  <option value="">Graduate Education Program</option>
+                  <option value="">Juris Doctor Program</option>
+                  <optgroup label="PERSONNEL">
+                    <option value="">Top Level Institutional Administrator</option>
+                    <option value="">HED Middle Level Administrator and Faculty</option>
+                    <option value="">BED Middle Level Administrator and Faculty</option>
+                    <option value="">Grade School Faculty</option>
+                    <option value="">Junior High School Faculty</option>
+                    <option value="">Senior High School Faculty</option>
+                  </optgroup>
+                  <optgroup label="NTP">
+                    <option value="">Finance</option>
+                    <option value="">Registrars</option>
+                    <option value="">ICT Personnel</option>
+                    <option value="">Guidance</option>
+                    <option value="">School Clinic</option>
+                    <option value="">Admin Assistants</option>
+                    <option value="">Campus Ministers</option>
+                    <option value="">Canteen Staff</option>
+                    <option value="">Laboratory Custodian</option>
+                    <option value="">Physical Plant Supervisor</option>
+                    <option value="">Property Custodian</option>
+                    <option value="">Printing/Binding Office</option>
+                    <option value="">Library</option>
+                    <option value="">Community Involvement Program</option>
+                    <option value="">Maintainance Personnel</option>
+                    <option value="">Outsourced Janitorial Services</option>
+                  </optgroup>
                 </select>
               </div>
             </div>
@@ -72,8 +112,8 @@
             <button class="login-btn block w-full mx-6 bg-[#091C98] hover:bg-[#16205c] ease-in duration-100 text-[#FFFFFF] text-lg font-semibold px-52 py-2 rounded-lg opacity-100 max-sm:px-28 max-md:px-28" type="submit">Login</button>
         </div>
         </form>
-        <div class="max-sm:absolute max-md:flex z-0 overflow-hidden bg-[#091C98] object-cover">
-          <img class="z-0 w-dvw h-dvh mix-blend-hard-light object-fill" src="./img/loginBg.png" alt="SMC BG">
+        <div class="max-sm:absolute w-full md:w-1/2 max-md:flex z-0 overflow-hidden bg-[#091C98] object-cover">
+          <img class="z-0 w-full h-dvh mix-blend-hard-light object-fill" src="./img/loginBg.png" alt="SMC BG">
         </div>
       </div>
     

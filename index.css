@@ -2,7 +2,6 @@
 
 * {
     font-family: 'Inter', sans-serif;
-    scrollbar-gutter: stable both-edges;
 }
 
 @keyframes formAppear {
